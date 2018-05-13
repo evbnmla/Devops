@@ -1,1 +1,4 @@
 Hi
+Self test file
+for DecOps
+today
