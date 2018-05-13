@@ -2,3 +2,7 @@ Hi
 Self test file
 for DecOps
 today
+new devops
+hello
+command
+
