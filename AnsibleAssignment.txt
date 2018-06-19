@@ -1,0 +1,104 @@
+1.create a playbook to print all Env info in a singal play
+
+---		
+ - hosts: all
+   tasks:
+    - name: Printing the environment variable in Ansible
+      debug:
+        msg: "{{ lookup('env','HOME','LANG','LOGNAME','MAIL','PATH','PWD','SHELL','SHLVL','SSH_CLIENT','SSH_CONNECTION','SSH_TTY','TERM','USER','XDG_RUNTIME_DIR','XDG_SESSION_ID') }}"
+		
+		
+		
+ "msg": {
+        "HOME": "/root",
+        "LANG": "en_US.UTF-8",
+        "LOGNAME": "root",
+        "MAIL": "/var/mail/root",
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games",
+        "PWD": "/root",
+        "SHELL": "/bin/bash",
+        "SHLVL": "1",
+        "SSH_CLIENT": "192.168.33.12 51337 22",
+        "SSH_CONNECTION": "192.168.33.12 51337 192.168.33.13 22",
+        "SSH_TTY": "/dev/pts/1",
+        "TERM": "xterm",
+        "USER": "root",
+        "XDG_RUNTIME_DIR": "/run/user/0",
+        "XDG_SESSION_ID": "24",
+        "_": "/bin/sh"
+    }
+}
+
+
+
+2.create a playbook to install apache and make service up&running automatically 
+
+---
+ - hosts: 192.168.33.13
+   tasks:
+     - name: Install apache2
+       apt: pkg=apache2 state=present
+
+       notify:
+        - Start apache2   
+   handlers:
+     - name: Start apache2
+       service: name=apache2 state=started
+
+3.create a playbook to create a multipul files and set owner as vagrant mode as 0777
+
+---
+ - hosts: commonserver
+   tasks:
+    - name: Ansible create multiple files example
+      file:
+        path: "{{ item }}"
+        state: touch
+        mode: 0777
+		owner: vagrant
+      with_items:
+      - exam1.txt
+      - exam2.txt
+	  - exam3.txt
+
+4.create a playbook to uninstall git 
+
+
+
+5.create a playbook to replace certain word of file 
+
+vijay.txt
+
+learn the Devops
+maintain the devops profile
+study the Devops
+work on devops
+
+---
+ - hosts: all
+   tasks:
+    - name: Ansible replace string example
+      replace:
+        path: vijay.txt
+        regexp: '[Dd]evops'
+        replace: "SAPhybris"
+
+
+6.write a playbook to install nagios3
+
+
+---
+ - hosts: 192.168.33.13
+   tasks:
+     - name: Install nagios3
+       apt: pkg=nagios3 state=present
+
+       notify:
+        - Start nagios3   
+   handlers:
+     - name: Start nagios3
+       service: name=nagios3 state=started
+
+
+
+
